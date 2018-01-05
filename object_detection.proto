@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+// compile using
+// python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. object_detection.proto
+
+package object_detection;
+
+service Detector {
+  rpc detect (stream Image) returns (stream Image) {}
+}
+
+message Image {
+  bytes jpeg_data = 1;
+}
