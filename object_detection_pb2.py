@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection.proto',
   package='object_detection',
   syntax='proto3',
-  serialized_pb=_b('\n\x16object_detection.proto\x12\x10object_detection\"\x1a\n\x05Image\x12\x11\n\tjpeg_data\x18\x01 \x01(\x0c\"\x16\n\x06\x42\x42oxes\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x32M\n\x08\x44\x65tector\x12\x41\n\x06\x64\x65tect\x12\x17.object_detection.Image\x1a\x18.object_detection.BBoxes\"\x00(\x01\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x16object_detection.proto\x12\x10object_detection\"\x1a\n\x05Image\x12\x11\n\tjpeg_data\x18\x01 \x01(\x0c\"\x16\n\x06\x42\x42oxes\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x32I\n\x08\x44\x65tector\x12=\n\x06\x64\x65tect\x12\x17.object_detection.Image\x1a\x18.object_detection.BBoxes\"\x00\x62\x06proto3')
 )
 
 
@@ -113,7 +113,7 @@ _DETECTOR = _descriptor.ServiceDescriptor(
   index=0,
   options=None,
   serialized_start=96,
-  serialized_end=173,
+  serialized_end=169,
   methods=[
   _descriptor.MethodDescriptor(
     name='detect',

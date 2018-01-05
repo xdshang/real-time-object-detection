@@ -18,15 +18,14 @@ class Detector(object_detection_pb2_grpc.DetectorServicer):
         super(Detector, self).__init__()
         self.detector = detector
     
-    def detect(self, request_iterator, context):
-        for request in request_iterator:
-            jpg = cPickle.loads(request.jpeg_data)
-            img = cv2.imdecode(jpg, cv2.IMREAD_COLOR)
-            if self.detector:
-                result = self.detector.detect(img)
-            else:
-                result = 'Debug Info'
-            yield object_detection_pb2.BBoxes(data=cPickle.dumps(result))
+    def detect(self, request, context):
+        jpg = cPickle.loads(request.jpeg_data)
+        img = cv2.imdecode(jpg, cv2.IMREAD_COLOR)
+        if self.detector:
+            result = self.detector.detect(img)
+        else:
+            result = 'Debug Info'
+        return object_detection_pb2.BBoxes(data=cPickle.dumps(result))
 
 
 def serve(detector):

@@ -14,7 +14,7 @@ class DetectorStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.detect = channel.stream_stream(
+    self.detect = channel.unary_unary(
         '/object_detection.Detector/detect',
         request_serializer=object__detection__pb2.Image.SerializeToString,
         response_deserializer=object__detection__pb2.BBoxes.FromString,
@@ -25,7 +25,7 @@ class DetectorServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
-  def detect(self, request_iterator, context):
+  def detect(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -35,7 +35,7 @@ class DetectorServicer(object):
 
 def add_DetectorServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'detect': grpc.stream_stream_rpc_method_handler(
+      'detect': grpc.unary_unary_rpc_method_handler(
           servicer.detect,
           request_deserializer=object__detection__pb2.Image.FromString,
           response_serializer=object__detection__pb2.BBoxes.SerializeToString,

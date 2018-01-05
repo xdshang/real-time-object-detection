@@ -6,7 +6,7 @@ syntax = "proto3";
 package object_detection;
 
 service Detector {
-    rpc detect (stream Image) returns (stream BBoxes) {}
+    rpc detect (Image) returns (BBoxes) {}
 }
 
 message Image {
