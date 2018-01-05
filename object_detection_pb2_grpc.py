@@ -17,7 +17,7 @@ class DetectorStub(object):
     self.detect = channel.stream_stream(
         '/object_detection.Detector/detect',
         request_serializer=object__detection__pb2.Image.SerializeToString,
-        response_deserializer=object__detection__pb2.Image.FromString,
+        response_deserializer=object__detection__pb2.BBoxes.FromString,
         )
 
 
@@ -38,7 +38,7 @@ def add_DetectorServicer_to_server(servicer, server):
       'detect': grpc.stream_stream_rpc_method_handler(
           servicer.detect,
           request_deserializer=object__detection__pb2.Image.FromString,
-          response_serializer=object__detection__pb2.Image.SerializeToString,
+          response_serializer=object__detection__pb2.BBoxes.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

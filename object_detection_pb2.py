@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection.proto',
   package='object_detection',
   syntax='proto3',
-  serialized_pb=_b('\n\x16object_detection.proto\x12\x10object_detection\"\x1a\n\x05Image\x12\x11\n\tjpeg_data\x18\x01 \x01(\x0c\x32L\n\x08\x44\x65tector\x12@\n\x06\x64\x65tect\x12\x17.object_detection.Image\x1a\x17.object_detection.Image\"\x00(\x01\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x16object_detection.proto\x12\x10object_detection\"\x1a\n\x05Image\x12\x11\n\tjpeg_data\x18\x01 \x01(\x0c\"o\n\x04\x42\x42ox\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x10\n\x08\x63\x65nter_x\x18\x02 \x01(\x02\x12\x10\n\x08\x63\x65nter_y\x18\x03 \x01(\x02\x12\r\n\x05width\x18\x04 \x01(\x02\x12\x0e\n\x06height\x18\x05 \x01(\x02\x12\x12\n\nconfidence\x18\x06 \x01(\x02\"0\n\x06\x42\x42oxes\x12&\n\x06\x62\x62oxes\x18\x01 \x03(\x0b\x32\x16.object_detection.BBox2M\n\x08\x44\x65tector\x12\x41\n\x06\x64\x65tect\x12\x17.object_detection.Image\x1a\x18.object_detection.BBoxes\"\x00(\x01\x30\x01\x62\x06proto3')
 )
 
 
@@ -55,7 +55,107 @@ _IMAGE = _descriptor.Descriptor(
   serialized_end=70,
 )
 
+
+_BBOX = _descriptor.Descriptor(
+  name='BBox',
+  full_name='object_detection.BBox',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='category', full_name='object_detection.BBox.category', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='center_x', full_name='object_detection.BBox.center_x', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='center_y', full_name='object_detection.BBox.center_y', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='width', full_name='object_detection.BBox.width', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='object_detection.BBox.height', index=4,
+      number=5, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='confidence', full_name='object_detection.BBox.confidence', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=72,
+  serialized_end=183,
+)
+
+
+_BBOXES = _descriptor.Descriptor(
+  name='BBoxes',
+  full_name='object_detection.BBoxes',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='bboxes', full_name='object_detection.BBoxes.bboxes', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=185,
+  serialized_end=233,
+)
+
+_BBOXES.fields_by_name['bboxes'].message_type = _BBOX
 DESCRIPTOR.message_types_by_name['Image'] = _IMAGE
+DESCRIPTOR.message_types_by_name['BBox'] = _BBOX
+DESCRIPTOR.message_types_by_name['BBoxes'] = _BBOXES
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Image = _reflection.GeneratedProtocolMessageType('Image', (_message.Message,), dict(
@@ -65,6 +165,20 @@ Image = _reflection.GeneratedProtocolMessageType('Image', (_message.Message,), d
   ))
 _sym_db.RegisterMessage(Image)
 
+BBox = _reflection.GeneratedProtocolMessageType('BBox', (_message.Message,), dict(
+  DESCRIPTOR = _BBOX,
+  __module__ = 'object_detection_pb2'
+  # @@protoc_insertion_point(class_scope:object_detection.BBox)
+  ))
+_sym_db.RegisterMessage(BBox)
+
+BBoxes = _reflection.GeneratedProtocolMessageType('BBoxes', (_message.Message,), dict(
+  DESCRIPTOR = _BBOXES,
+  __module__ = 'object_detection_pb2'
+  # @@protoc_insertion_point(class_scope:object_detection.BBoxes)
+  ))
+_sym_db.RegisterMessage(BBoxes)
+
 
 
 _DETECTOR = _descriptor.ServiceDescriptor(
@@ -73,8 +187,8 @@ _DETECTOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=72,
-  serialized_end=148,
+  serialized_start=235,
+  serialized_end=312,
   methods=[
   _descriptor.MethodDescriptor(
     name='detect',
@@ -82,7 +196,7 @@ _DETECTOR = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_IMAGE,
-    output_type=_IMAGE,
+    output_type=_BBOXES,
     options=None,
   ),
 ])
