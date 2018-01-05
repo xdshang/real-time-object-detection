@@ -13,15 +13,6 @@ message Image {
     bytes jpeg_data = 1;
 }
 
-message BBox {
-    string category = 1;
-    float center_x = 2;
-    float center_y = 3;
-    float width = 4;
-    float height = 5;
-    float confidence = 6;
-}
-
 message BBoxes {
-    repeated BBox bboxes = 1;
+    bytes data = 1;
 }

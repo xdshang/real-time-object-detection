@@ -22,18 +22,11 @@ class Detector(object_detection_pb2_grpc.DetectorServicer):
         for request in request_iterator:
             jpg = cPickle.loads(request.jpeg_data)
             img = cv2.imdecode(jpg, cv2.IMREAD_COLOR)
-            bboxes = object_detection_pb2.BBoxes()
             if self.detector:
-                results = self.detector.detect(img)
-                for res in results:
-                    bbox = bboxes.bboxes.add()
-                    bbox.category = res[0]
-                    bbox.center_x = res[1]
-                    bbox.center_y = res[2]
-                    bbox.width = res[3]
-                    bbox.height = res[4]
-                    bbox.confidence = res[5]
-            yield bboxes
+                result = self.detector.detect(img)
+            else:
+                result = 'Debug Info'
+            yield object_detection_pb2.BBoxes(data=cPickle.dumps(result))
 
 
 def serve(detector):
