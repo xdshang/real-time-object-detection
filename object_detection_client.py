@@ -12,41 +12,48 @@ from utils import draw_result
 import object_detection_pb2
 import object_detection_pb2_grpc
 
-_image = None
 
-
-def webcam(vs, scale=0.7, mirror=False):
-    global _image
+def webcam(vs, mirror=False):
     while True:
         img = vs.read()
-        img = imutils.resize(img, height=320)
         if mirror: 
             img = cv2.flip(img, 1)
-        _image = img
-        jpg = cv2.imencode('.jpg', _image)[1]
-        yield object_detection_pb2.Image(jpeg_data=cPickle.dumps(jpg))
+        # crop image to square as YOLO input
+        if img.shape[0] < img.shape[1]:
+            pad = (img.shape[1]-img.shape[0])//2
+            img = img[:, pad: pad+img.shape[0]]
+        else:
+            pad = (img.shape[0]-img.shape[1])//2
+            img = img[pad: pad+img.shape[1], :]
+        yield img
 
 
-def run(args):
-    global _image
+def run(args, size=224):
+    print('[INFO] starting...')
     channel = grpc.insecure_channel(args.server)
     stub = object_detection_pb2_grpc.DetectorStub(channel)
     vs = VideoStream(src=0).start()
-    time.sleep(2.0)
+    time.sleep(1.0)
     fps = FPS().start()
     try:
-        for out in stub.detect(webcam(vs, mirror=True)):
-            result = cPickle.loads(out.data)
-            display = draw_result(_image, result)
+        for img in webcam(vs, mirror=True):
+            # compress frame
+            resized_img = cv2.resize(img, (size, size))
+            jpg = cv2.imencode('.jpg', resized_img)[1]
+            # send to server for object detection
+            response = stub.detect(object_detection_pb2.Image(jpeg_data=cPickle.dumps(jpg)))
+            # parse detection result and draw on the frame
+            result = cPickle.loads(response.data)
+            display = draw_result(img, result, scale=float(img.shape[0])/size)
             cv2.imshow('Object Detection', display)
-            cv2.waitKey(20)
+            cv2.waitKey(1)
             fps.update()
     except grpc._channel._Rendezvous as err:
         print(err)
     except KeyboardInterrupt:
         fps.stop()
-        print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
-        print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+        print('[INFO] elapsed time: {:.2f}'.format(fps.elapsed()))
+        print('[INFO] approx. FPS: {:.2f}'.format(fps.fps()))
         cv2.destroyAllWindows()
         vs.stop()
 
