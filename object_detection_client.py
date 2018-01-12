@@ -5,7 +5,7 @@ from imutils.video import FPS
 import imutils
 import cv2
 import numpy as np
-import cPickle
+import pickle
 import grpc
 from utils import draw_result
 
@@ -41,9 +41,9 @@ def run(args, size=224):
             resized_img = cv2.resize(img, (size, size))
             jpg = cv2.imencode('.jpg', resized_img)[1]
             # send to server for object detection
-            response = stub.detect(object_detection_pb2.Image(jpeg_data=cPickle.dumps(jpg)))
+            response = stub.detect(object_detection_pb2.Image(jpeg_data=pickle.dumps(jpg)))
             # parse detection result and draw on the frame
-            result = cPickle.loads(response.data)
+            result = pickle.loads(response.data)
             display = draw_result(img, result, scale=float(img.shape[0])/size)
             cv2.imshow('Object Detection', display)
             cv2.waitKey(1)
@@ -60,7 +60,7 @@ def run(args, size=224):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detection Client')
-    parser.add_argument('--server', default='next-gpu2.d2.comp.nus.edu.sg:50051',
+    parser.add_argument('--server', default='next-gpu3.d2.comp.nus.edu.sg:50051',
             help='Server url:port')
     args = parser.parse_args()
     run(args)

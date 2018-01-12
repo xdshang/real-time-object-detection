@@ -1,7 +1,8 @@
 # Real-Time Object Detection
 
 ### Prerequisites
-- Python2, tensorflow-gpu, opencv-contrib-python, imutils, grpcio, cPickle
+- Client: Python3, opencv-contrib-python, imutils, grpcio
+- Server: Python3, tensorflow-gpu, opencv-contrib-python, grpcio-tools
 - [YOLO_small_weights](https://drive.google.com/file/d/0B2JbaJSrWLpza08yS2FSUnV2dlE/view?usp=sharing)
 
 ### Quick Start
