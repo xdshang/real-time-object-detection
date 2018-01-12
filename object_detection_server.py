@@ -2,7 +2,7 @@ from concurrent import futures
 import time
 import numpy as np
 import cv2
-import cPickle
+import pickle
 
 import grpc
 
@@ -19,13 +19,13 @@ class Detector(object_detection_pb2_grpc.DetectorServicer):
         self.detector = detector
     
     def detect(self, request, context):
-        jpg = cPickle.loads(request.jpeg_data)
+        jpg = pickle.loads(request.jpeg_data)
         img = cv2.imdecode(jpg, cv2.IMREAD_COLOR)
         if self.detector:
             result = self.detector.detect(img)
         else:
             result = 'Debug Info'
-        return object_detection_pb2.BBoxes(data=cPickle.dumps(result))
+        return object_detection_pb2.BBoxes(data=pickle.dumps(result))
 
 
 def serve(detector):
