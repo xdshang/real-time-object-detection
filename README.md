@@ -3,7 +3,7 @@
 ### Prerequisites
 - Server: Python3, tensorflow-gpu, opencv-contrib-python, grpcio-tools
 - Client: Python3, opencv-contrib-python, imutils, grpcio
-- [YOLO_small_weights](https://drive.google.com/file/d/0B2JbaJSrWLpza08yS2FSUnV2dlE/view?usp=sharing)
+- [YOLO_small_weights](https://drive.google.com/open?id=1FBDsQitiY0lLAEZ5KbMigdXf4jS_Wq3_)
 
 ### Quick Start
 1. On GPU server side, run the jupyter notebook and execute the code under the title"Run Server" (the service listens on port 50051).
