@@ -60,7 +60,6 @@ def run(args, size=224):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detection Client')
-    parser.add_argument('--server', default='next-gpu3.d2.comp.nus.edu.sg:50051',
-            help='Server url:port')
+    parser.add_argument('--server', default='some-server:50051', help='Server url:port')
     args = parser.parse_args()
     run(args)
